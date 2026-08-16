@@ -1,0 +1,106 @@
+                                              precision    recall  f1-score   support
+
+                           actinic keratosis       0.77      0.73      0.75       162
+                         acute bronchiolitis       0.92      0.89      0.90       241
+                            acute bronchitis       0.74      0.74      0.74       243
+                          acute bronchospasm       0.55      0.61      0.58       162
+                         acute kidney injury       0.97      0.99      0.98       162
+                          acute pancreatitis       0.91      0.85      0.88       241
+                             acute sinusitis       0.86      0.85      0.85       166
+                                     allergy       0.94      0.98      0.96       161
+                                      angina       0.92      0.97      0.95       165
+                                     anxiety       0.95      0.96      0.96       240
+                                appendicitis       0.86      0.83      0.85       162
+                        arthritis of the hip       0.96      0.96      0.96       242
+                                      asthma       0.71      0.80      0.75       163
+          benign prostatic hyperplasia (bph)       1.00      1.00      1.00       241
+                           brachial neuritis       0.91      0.84      0.87       165
+                                    bursitis       0.99      0.98      0.99       242
+                      carpal tunnel syndrome       0.95      0.93      0.94       164
+                               cholecystitis       0.80      0.77      0.78       241
+                           chronic back pain       0.96      0.94      0.95       161
+                        chronic constipation       0.94      0.90      0.92       165
+chronic obstructive pulmonary disease (copd)       0.59      0.53      0.56       162
+                                 common cold       0.83      0.81      0.82       163
+              complex regional pain syndrome       0.90      0.88      0.89       243
+                                  concussion       1.00      0.99      1.00       238
+                              conjunctivitis       0.96      0.95      0.95       165
+               conjunctivitis due to allergy       0.93      0.95      0.94       243
+                          contact dermatitis       0.81      0.80      0.80       165
+                            cornea infection       0.93      0.91      0.92       163
+                                       croup       0.87      0.90      0.88       161
+                                    cystitis       0.76      0.81      0.78       244
+                   degenerative disc disease       0.62      0.62      0.62       162
+                               dental caries       0.99      0.97      0.98       237
+                                  depression       0.79      0.78      0.79       166
+                    developmental disability       0.98      0.98      0.98       165
+                                 diaper rash       0.98      0.99      0.99       162
+                              diverticulitis       0.87      0.84      0.85       243
+                               drug reaction       0.98      0.99      0.98       162
+                             ear drum damage       0.97      0.95      0.96       164
+                                      eczema       0.78      0.80      0.79       241
+                                 esophagitis       0.92      0.95      0.93       243
+  eustachian tube dysfunction (ear disorder)       0.99      0.98      0.98       162
+                fungal infection of the hair       0.81      0.79      0.79       242
+                                   gallstone       0.63      0.70      0.66       162
+                 gastrointestinal hemorrhage       0.95      0.96      0.96       243
+                                        gout       0.97      0.98      0.97       242
+                                 gum disease       0.96      0.99      0.98       160
+                                heart attack       0.97      0.95      0.96       162
+                               heart failure       0.93      0.96      0.95       163
+                                 hemorrhoids       0.91      0.95      0.93       164
+                              herniated disk       0.74      0.77      0.75       166
+                               hiatal hernia       0.94      0.93      0.94       163
+                      hyperemesis gravidarum       0.97      0.94      0.96       163
+                  hypertensive heart disease       0.97      0.94      0.96       161
+                                hypoglycemia       1.00      1.00      1.00       243
+           idiopathic excessive menstruation       0.85      0.83      0.84       166
+        idiopathic irregular menstrual cycle       0.83      0.87      0.85       163
+             idiopathic painful menstruation       0.85      0.88      0.86       161
+                  infectious gastroenteritis       0.63      0.63      0.63       242
+                           injury to the arm       0.95      0.98      0.97       242
+                           injury to the leg       0.99      0.98      0.98       241
+                         injury to the trunk       0.99      0.98      0.98       161
+                               liver disease       0.97      0.98      0.98       242
+                        macular degeneration       0.97      0.96      0.97       163
+                             marijuana abuse       0.76      0.76      0.76       242
+                          multiple sclerosis       0.97      0.98      0.98       165
+               noninfectious gastroenteritis       0.63      0.65      0.64       241
+                               nose disorder       0.89      0.91      0.90       244
+               obstructive sleep apnea (osa)       1.00      1.00      1.00       239
+              otitis externa (swimmer's ear)       0.99      0.96      0.97       162
+                                otitis media       0.88      0.93      0.90       161
+                     pain after an operation       0.94      0.94      0.94       161
+                              panic disorder       0.96      0.94      0.95       162
+                 pelvic inflammatory disease       0.88      0.88      0.88       161
+                   peripheral nerve disorder       0.93      0.94      0.94       243
+                        personality disorder       0.48      0.47      0.48       163
+                                   pneumonia       0.80      0.76      0.78       242
+                    problem during pregnancy       0.93      0.94      0.94       164
+                                   psoriasis       0.75      0.73      0.74       165
+                     pyogenic skin infection       1.00      0.99      1.00       167
+                             rectal disorder       0.92      0.90      0.91       162
+                               schizophrenia       0.69      0.73      0.71       162
+              seasonal allergies (hay fever)       0.92      0.95      0.94       163
+                              sebaceous cyst       0.95      0.96      0.95       164
+                                      sepsis       0.93      0.92      0.92       165
+                          sickle cell crisis       0.93      0.95      0.94       162
+                           sinus bradycardia       0.97      0.95      0.96       163
+                  skin pigmentation disorder       0.41      0.40      0.41       161
+                                  skin polyp       0.43      0.47      0.45       161
+                             spinal stenosis       0.72      0.73      0.73       241
+                                 spondylosis       0.76      0.74      0.75       243
+                        spontaneous abortion       0.83      0.83      0.83       242
+                            sprain or strain       0.93      0.94      0.94       242
+                                strep throat       0.94      0.92      0.93       242
+                                        stye       0.99      0.97      0.98       166
+          temporary or benign blood in urine       0.72      0.65      0.68       161
+                        threatened pregnancy       0.72      0.83      0.77       164
+                     urinary tract infection       0.86      0.93      0.90       163
+                                vaginal cyst       0.87      0.76      0.81       243
+                                   vaginitis       0.95      0.95      0.95       164
+                                  vulvodynia       0.91      0.89      0.90       244
+
+                                    accuracy                           0.87     19218
+                                   macro avg       0.87      0.87      0.87     19218
+                                weighted avg       0.87      0.87      0.87     19218
