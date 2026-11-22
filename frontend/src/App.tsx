@@ -58,7 +58,7 @@ export default function App() {
   const [ldlRatio, setLdlRatio] = useState(2.4);
 
   // Federated Training ("Privacy Is How We Train")
-  const [flRounds, setFlRounds] = useState(14);
+  const [flRounds] = useState(14);
   const [dpSigma, setDpSigma] = useState(0.5);
   const [flLoading, setFlLoading] = useState(false);
   const [flResult, setFlResult] = useState<FederatedResponse | null>(null);
@@ -863,3 +863,4 @@ export default function App() {
     </div>
   );
 }
+
