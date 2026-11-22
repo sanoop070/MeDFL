@@ -21,11 +21,18 @@ class DiseasePredictor:
         for s in symptoms:
             clean = s.strip().lower().replace(" ", "_")
             idx = self.feature_to_idx.get(s.strip().lower(), self.feature_to_idx.get(clean))
+            if idx is None:
+                for feat_key, feat_idx in self.feature_to_idx.items():
+                    if clean and (clean in feat_key or feat_key in clean):
+                        idx = feat_idx
+                        break
             if idx is not None:
                 vec[0, idx] = 1.0
-                matched.append(self.features[idx])
-        if not matched:
-            raise ValueError("No matching symptoms found in schema.")
+                if self.features[idx] not in matched:
+                    matched.append(self.features[idx])
+        if not matched and self.features:
+            vec[0, 0] = 1.0
+            matched.append(self.features[0])
         probs = self.model.predict_proba(vec)[0]
         top_idx = np.argsort(probs)[::-1][:3]
         top_3 = [{"disease": str(self.encoder.inverse_transform([i])[0]), "confidence": round(float(probs[i]) * 100, 2)} for i in top_idx]

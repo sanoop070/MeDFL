@@ -29,12 +29,12 @@ class FederatedCoordinator:
             ww, wb, node_logs = None, None, []
             total = sum(len(c[2]) for c in cohorts)
             for nid, spec, nx, ny in cohorts:
-                mlp = MLPClassifier(hidden_layer_sizes=(64, 32), max_iter=1, warm_start=True, learning_rate_init=0.005, random_state=42)
-                mlp.partial_fit(nx[:min(32, len(nx))], ny[:min(32, len(ny))], classes=classes)
+                mlp = MLPClassifier(hidden_layer_sizes=(64, 32), max_iter=1, warm_start=False, learning_rate_init=0.005, random_state=42)
+                mlp.partial_fit(nx, ny, classes=classes)
                 if gw is not None:
                     mlp.coefs_ = [w.copy() for w in gw]
                     mlp.intercepts_ = [b.copy() for b in gb]
-                for _ in range(3):
+                for _ in range(2):
                     mlp.partial_fit(nx, ny)
                 nw = [w + rng.normal(0, dp_sigma * 0.02, w.shape) for w in mlp.coefs_]
                 nb = [b + rng.normal(0, dp_sigma * 0.02, b.shape) for b in mlp.intercepts_]
@@ -43,8 +43,8 @@ class FederatedCoordinator:
                 wb = [b * ratio for b in nb] if wb is None else [a + b * ratio for a, b in zip(wb, nb)]
                 node_logs.append({"node_id": nid, "specialty": spec, "samples": len(nx), "local_accuracy": round(float(accuracy_score(ny, mlp.predict(nx))) * 100, 2)})
             gw, gb = ww, wb
-            gmlp = MLPClassifier(hidden_layer_sizes=(64, 32), max_iter=1, warm_start=True)
-            gmlp.partial_fit(X[:32], y[:32], classes=classes)
+            gmlp = MLPClassifier(hidden_layer_sizes=(64, 32), max_iter=1, warm_start=False)
+            gmlp.partial_fit(X[:min(256, len(X))], y[:min(256, len(y))], classes=classes)
             gmlp.coefs_, gmlp.intercepts_ = gw, gb
             gacc = round(float(accuracy_score(y, gmlp.predict(X))) * 100, 2)
             logs.append({"round": r, "global_accuracy": gacc, "dp_epsilon": round((r * 0.45) / max(dp_sigma, 0.01), 2), "nodes": node_logs})
