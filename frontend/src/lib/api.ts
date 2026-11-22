@@ -63,7 +63,7 @@ export interface ChatSearchResponse {
 
 export async function fetchSymptoms(search = ""): Promise<string[]> {
   try {
-    const res = await fetch(`${API_BASE}/symptoms?search=${encodeURIComponent(search)}`); if (!res.ok) throw new Error(); const data = await res.json(); return data.symptoms \vert{}\vert{} []; } catch { return [ "sore_throat", "high_fever", "cough", "shortness_of_breath", "chest_pain", "palpitations", "dizziness", "fatigue", "headache", "nausea", "abdominal_pain", "excessive_hunger", "polyuria", "blurred_vision", "joint_pain", ]; } }  export async function predictDisease(symptoms: string[]): Promise<PredictionResponse> { try { const res = await fetch(`${API_BASE}/predict`, {
+    const res = await fetch(`${API_BASE}/symptoms?search=${encodeURIComponent(search)}`); if (!res.ok) throw new Error(); const data = await res.json(); return data.symptoms || []; } catch { return [ "sore_throat", "high_fever", "cough", "shortness_of_breath", "chest_pain", "palpitations", "dizziness", "fatigue", "headache", "nausea", "abdominal_pain", "excessive_hunger", "polyuria", "blurred_vision", "joint_pain", ]; } }  export async function predictDisease(symptoms: string[]): Promise<PredictionResponse> { try { const res = await fetch(`${API_BASE}/predict`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ symptoms }),
@@ -115,3 +115,4 @@ export async function runFederatedTraining(rounds: number, dpSigma: number): Pro
     };
   }
 }
+
