@@ -1,41 +1,33 @@
-"""
-MeDFL Project Configuration
+﻿from pathlib import Path
+from pydantic import BaseModel
 
-This file stores all project paths and constants.
-Every module should import paths from here instead of hardcoding them.
-"""
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DATASETS_RAW_DIR = PROJECT_ROOT / "datasets" / "raw"
+SAVED_MODELS_DIR = PROJECT_ROOT / "backend" / "saved_models"
 
-from pathlib import Path
+SYMPTOM_DATASET_PATH = DATASETS_RAW_DIR / "Diseases_and_Symptoms_dataset.csv"
+HEART_DATASET_PATH = DATASETS_RAW_DIR / "heart.csv"
+DIABETES_DATASET_PATH = DATASETS_RAW_DIR / "diabetes.csv"
 
-# ==========================================================
-# Project Directories
-# ==========================================================
+DESCRIPTION_CSV = DATASETS_RAW_DIR / "description.csv"
+MEDICATIONS_CSV = DATASETS_RAW_DIR / "medications.csv"
+DIETS_CSV = DATASETS_RAW_DIR / "diets.csv"
+PRECAUTIONS_CSV = DATASETS_RAW_DIR / "precautions_df.csv"
+WORKOUTS_CSV = DATASETS_RAW_DIR / "workout_df.csv"
 
-# MeDFL/
-BASE_DIR = Path(__file__).resolve().parents[2]
+MODEL_ARTIFACT_PATH = SAVED_MODELS_DIR / "random_forest_model.pkl"
+ENCODER_ARTIFACT_PATH = SAVED_MODELS_DIR / "label_encoder.pkl"
+SCHEMA_ARTIFACT_PATH = SAVED_MODELS_DIR / "feature_schema.json"
+FEDERATED_MODEL_PATH = SAVED_MODELS_DIR / "federated_global_mlp.pkl"
 
-BACKEND_DIR = BASE_DIR / "backend"
-FRONTEND_DIR = BASE_DIR / "frontend"
 
-DATASETS_DIR = BASE_DIR / "datasets"
-RAW_DATA_DIR = DATASETS_DIR / "raw"
-PROCESSED_DATA_DIR = DATASETS_DIR / "processed"
+class Settings(BaseModel):
+    app_name: str = "MeDFL — Federated Medical Intelligence API"
+    version: str = "2.0.0"
+    api_prefix: str = "/api"
+    cors_origins: list[str] = ["*"]
+    default_fl_rounds: int = 8
+    default_dp_sigma: float = 0.05
 
-MODEL_DIR = BACKEND_DIR / "saved_models"
-LOG_DIR = BACKEND_DIR / "logs"
 
-# ==========================================================
-# Dataset Files
-# ==========================================================
-
-DISEASE_DATASET = RAW_DATA_DIR / "Diseases_and_Symptoms_dataset.csv"
-
-DESCRIPTION_DATASET = RAW_DATA_DIR / "description.csv"
-
-MEDICATION_DATASET = RAW_DATA_DIR / "medications.csv"
-
-DIET_DATASET = RAW_DATA_DIR / "diets.csv"
-
-PRECAUTION_DATASET = RAW_DATA_DIR / "precautions.csv"
-
-WORKOUT_DATASET = RAW_DATA_DIR / "workout.csv"
+settings = Settings()

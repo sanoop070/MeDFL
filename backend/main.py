@@ -1,65 +1,32 @@
-"""
-MeDFL FastAPI Application
-"""
-
-from fastapi import FastAPI
+﻿from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from backend.config.settings import settings
+from backend.api.routes import router
 
-from backend.api.prediction import router as prediction_router
-from backend.api.disease import router as disease_router
-from backend.api.symptoms import router as symptoms_router
+app = FastAPI(title=settings.app_name, version=settings.version)
 
-
-app = FastAPI(
-    title="MeDFL API",
-    description=(
-        "Privacy-preserving AI healthcare platform "
-        "using Federated Learning."
-    ),
-    version="1.0.0",
-)
-
-
-# ---------------------------------------------------------
-# CORS
-# ---------------------------------------------------------
-
-# Development only.
-# Allows the Vite/Lovable frontend to communicate with FastAPI.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:8080",
-        "http://127.0.0.1:8080",
-    ],
+    allow_origins=settings.cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+app.include_router(router, prefix=settings.api_prefix)
 
-# ---------------------------------------------------------
-# API ROUTERS
-# ---------------------------------------------------------
-
-app.include_router(prediction_router)
-app.include_router(disease_router)
-app.include_router(symptoms_router)
-
-
-# ---------------------------------------------------------
-# ROOT
-# ---------------------------------------------------------
 
 @app.get("/")
-def root():
-    """
-    Health check endpoint.
-    """
-
+def health_check():
     return {
-        "message": "MeDFL API is running",
-        "status": "healthy",
+        "status": "online",
+        "service": settings.app_name,
+        "version": settings.version,
+        "endpoints": [
+            "/api/symptoms",
+            "/api/predict",
+            "/api/diseases",
+            "/api/federated/run",
+            "/api/chat",
+        ],
     }

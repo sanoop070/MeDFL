@@ -1,0 +1,38 @@
+﻿@import "tailwindcss";
+
+:root {
+  --bg-obsidian: #050806;
+  --bg-surface: #0b120e;
+  --emerald-glow: #10b981;
+  --emerald-bright: #34d399;
+}
+
+body {
+  background: radial-gradient(circle at 18% 0%, rgba(16, 185, 129, 0.16), transparent 42%),
+              radial-gradient(circle at 85% 22%, rgba(5, 150, 105, 0.12), transparent 45%),
+              #050806;
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #f4f7f5;
+}
+
+h1, h2, h3, .font-display {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.large-text {
+  font-size: 112%;
+}
+
+.emerald-card {
+  background: linear-gradient(155deg, rgba(16, 26, 20, 0.92), rgba(7, 12, 9, 0.96));
+  border: 1px solid rgba(52, 211, 153, 0.18);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+}
+
+.emerald-card:hover {
+  border-color: rgba(52, 211, 153, 0.42);
+}

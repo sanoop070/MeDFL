@@ -1,141 +1,62 @@
-"""
-Disease Prediction Engine
-
-Loads the trained Random Forest model and converts
-user-selected symptoms into model-compatible input.
-"""
-
+﻿import joblib
+import numpy as np
 from typing import Dict, List
-
-import joblib
-import pandas as pd
-
-from backend.config.settings import MODEL_DIR
+from backend.config.settings import MODEL_ARTIFACT_PATH, ENCODER_ARTIFACT_PATH
 from backend.ml.feature_schema import get_symptom_features
+from backend.ml.explainability import ModelExplainer
 
 
 class DiseasePredictor:
-    """Generate disease predictions from selected symptoms."""
-
     def __init__(self):
-        """Load the trained model and label encoder."""
+        self.features = get_symptom_features()
+        self.feature_to_idx = {feat.lower(): i for i, feat in enumerate(self.features)}
+        self.model = None
+        self.encoder = None
+        self.explainer = None
+        self._load_artifacts()
 
-        model_path = MODEL_DIR / "random_forest_model.pkl"
-        encoder_path = MODEL_DIR / "label_encoder.pkl"
+    def _load_artifacts(self):
+        if MODEL_ARTIFACT_PATH.exists() and ENCODER_ARTIFACT_PATH.exists():
+            self.model = joblib.load(MODEL_ARTIFACT_PATH)
+            self.encoder = joblib.load(ENCODER_ARTIFACT_PATH)
+            self.explainer = ModelExplainer(self.model, self.features)
 
-        if not model_path.exists():
-            raise FileNotFoundError(
-                f"Model not found: {model_path}"
-            )
+    def predict(self, symptoms: List[str]) -> Dict:
+        if self.model is None or self.encoder is None:
+            raise RuntimeError("Model artifacts not found. Run `python -m backend.ml.train` first.")
 
-        if not encoder_path.exists():
-            raise FileNotFoundError(
-                f"Label encoder not found: {encoder_path}"
-            )
+        vec = np.zeros((1, len(self.features)), dtype=np.float32)
+        matched_symptoms = []
+        for s in symptoms:
+            clean = s.strip().lower().replace(" ", "_")
+            idx = self.feature_to_idx.get(s.strip().lower())
+            if idx is None:
+                idx = self.feature_to_idx.get(clean)
+            if idx is not None:
+                vec[0, idx] = 1.0
+                matched_symptoms.append(self.features[idx])
 
-        self.model = joblib.load(model_path)
-        self.label_encoder = joblib.load(encoder_path)
+        if not matched_symptoms:
+            raise ValueError("None of the provided symptoms matched the model feature schema.")
 
-        self.symptom_features = get_symptom_features()
+        probs = self.model.predict_proba(vec)[0]
+        top_indices = np.argsort(probs)[::-1][:3]
 
-        self.symptom_set = set(self.symptom_features)
+        top_predictions = [
+            {
+                "disease": str(self.encoder.inverse_transform([idx])[0]),
+                "confidence": round(float(probs[idx]) * 100, 2),
+            }
+            for idx in top_indices
+        ]
 
-    def create_feature_vector(
-        self,
-        symptoms: List[str],
-    ) -> pd.DataFrame:
-        """
-        Convert selected symptoms into the 230-feature format
-        expected by the trained model.
-        """
-
-        normalized_symptoms = {
-            symptom.strip().lower()
-            for symptom in symptoms
-        }
-
-        invalid_symptoms = (
-            normalized_symptoms - self.symptom_set
-        )
-
-        if invalid_symptoms:
-            raise ValueError(
-                f"Unknown symptoms: {sorted(invalid_symptoms)}"
-            )
-
-        feature_vector = {
-            symptom: 1
-            if symptom in normalized_symptoms
-            else 0
-            for symptom in self.symptom_features
-        }
-
-        return pd.DataFrame([feature_vector])
-
-    def predict(
-        self,
-        symptoms: List[str],
-        top_k: int = 3,
-    ) -> Dict:
-        """
-        Generate the top disease predictions.
-
-        Parameters
-        ----------
-        symptoms:
-            List of symptoms selected by the user.
-
-        top_k:
-            Number of predictions to return.
-
-        Returns
-        -------
-        Dict
-            Prediction results with disease names
-            and confidence scores.
-        """
-
-        if not symptoms:
-            raise ValueError(
-                "At least one symptom must be provided."
-            )
-
-        if top_k < 1:
-            raise ValueError(
-                "top_k must be at least 1."
-            )
-
-        if top_k > len(self.label_encoder.classes_):
-            top_k = len(self.label_encoder.classes_)
-
-        feature_vector = self.create_feature_vector(
-            symptoms
-        )
-
-        probabilities = self.model.predict_proba(
-            feature_vector
-        )[0]
-
-        top_indices = probabilities.argsort()[-top_k:][::-1]
-
-        predictions = []
-
-        for index in top_indices:
-            disease = self.label_encoder.inverse_transform(
-                [index]
-            )[0]
-
-            confidence = float(probabilities[index])
-
-            predictions.append(
-                {
-                    "disease": disease,
-                    "confidence": confidence,
-                }
-            )
+        top_idx = int(top_indices[0])
+        explanation = self.explainer.explain_instance(vec, top_idx, matched_symptoms)
 
         return {
-            "prediction": predictions[0]["disease"],
-            "confidence": predictions[0]["confidence"],
-            "top_predictions": predictions,
+            "predicted_disease": top_predictions[0]["disease"],
+            "confidence": top_predictions[0]["confidence"],
+            "top_3": top_predictions,
+            "matched_symptoms": matched_symptoms,
+            "shap_explanation": explanation,
         }
