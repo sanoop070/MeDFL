@@ -6,9 +6,6 @@ DATASETS_RAW_DIR = PROJECT_ROOT / "datasets" / "raw"
 SAVED_MODELS_DIR = PROJECT_ROOT / "backend" / "saved_models"
 
 SYMPTOM_DATASET_PATH = DATASETS_RAW_DIR / "Diseases_and_Symptoms_dataset.csv"
-HEART_DATASET_PATH = DATASETS_RAW_DIR / "heart.csv"
-DIABETES_DATASET_PATH = DATASETS_RAW_DIR / "diabetes.csv"
-
 DESCRIPTION_CSV = DATASETS_RAW_DIR / "description.csv"
 MEDICATIONS_CSV = DATASETS_RAW_DIR / "medications.csv"
 DIETS_CSV = DATASETS_RAW_DIR / "diets.csv"
@@ -20,14 +17,10 @@ ENCODER_ARTIFACT_PATH = SAVED_MODELS_DIR / "label_encoder.pkl"
 SCHEMA_ARTIFACT_PATH = SAVED_MODELS_DIR / "feature_schema.json"
 FEDERATED_MODEL_PATH = SAVED_MODELS_DIR / "federated_global_mlp.pkl"
 
-
 class Settings(BaseModel):
     app_name: str = "MeDFL — Federated Medical Intelligence API"
     version: str = "2.0.0"
     api_prefix: str = "/api"
     cors_origins: list[str] = ["*"]
-    default_fl_rounds: int = 8
-    default_dp_sigma: float = 0.05
-
 
 settings = Settings()
