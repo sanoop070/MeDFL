@@ -1,5 +1,5 @@
 ﻿import React, { useEffect, useState } from "react";
-import { fetchSymptoms, predictDisease, runFederatedTraining, queryMedicalSearchChat, PredictionResponse, FederatedResponse, ChatSearchResponse } from "./lib/api";
+import { fetchSymptoms, predictDisease, runFederatedTraining, queryMedicalSearchChat } from "./lib/api";`r`nimport type { PredictionResponse, FederatedResponse, ChatSearchResponse } from "./lib/api";
 import { AnatomyMap } from "./components/AnatomyMap";
 
 export default function App() {
@@ -246,3 +246,4 @@ export default function App() {
     </div>
   );
 }
+
