@@ -19,6 +19,14 @@ interface OrganHotspot {
   anatomicalLabel: string;
 }
 
+const BODY_HOTSPOTS = [
+  { id: "neuro", label: "NEURO", sublabel: "Cerebral & Central Nervous", topPercent: 11, leftPercent: 50, organView: "brain" as ViewMode },
+  { id: "cardio_lung", label: "CHEST\nHEART / LUNG", sublabel: "Cardiopulmonary & Thoracic", topPercent: 24, leftPercent: 50, organView: "heart" as ViewMode },
+  { id: "gi_endo", label: "ABDOMEN\nGI / ENDO", sublabel: "Metabolic & Gastrointestinal", topPercent: 37, leftPercent: 50, organView: "digestive" as ViewMode },
+  { id: "joints_limbs", label: "JOINTS / LIMBS", sublabel: "Musculoskeletal & Locomotor", topPercent: 58, leftPercent: 50, organView: "body" as ViewMode },
+  { id: "systemic", label: "⚡ SYSTEMIC / INFECTIOUS", sublabel: "Immune, Vitals & Infectious", topPercent: 91, leftPercent: 50, organView: "body" as ViewMode },
+];
+
 const REAL_BRAIN_HOTSPOTS: OrganHotspot[] = [
   { id: "throbbing_headache", name: "Throbbing Headache", topPercent: 32, leftPercent: 44, regionId: "neuro", anatomicalLabel: "Frontal / Parietal Cortex" },
   { id: "visual_aura_photophobia", name: "Visual Aura & Photophobia", topPercent: 42, leftPercent: 72, regionId: "neuro", anatomicalLabel: "Occipital Visual Lobe" },
@@ -123,15 +131,15 @@ export const AnatomyMap: React.FC<AnatomyMapProps> = ({
       </div>
 
       {/* 3D Viewport Box */}
-      <div className="relative w-full h-[375px] rounded-2xl bg-gradient-to-b from-[#060b08] via-[#09130b] to-[#040805] border border-emerald-500/25 flex items-center justify-center p-3 overflow-hidden shadow-[inset_0_0_40px_rgba(16,185,129,0.08)]">
+      <div className="relative w-full h-[400px] rounded-2xl bg-gradient-to-b from-[#050906] via-[#08120a] to-[#040805] border border-emerald-500/25 flex items-center justify-center p-2 overflow-hidden shadow-[inset_0_0_40px_rgba(16,185,129,0.08)]">
         {/* Background Depth Grid & Ambient Rings */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.12)_0%,transparent_70%)] pointer-events-none" />
-        <div className="absolute w-64 h-64 rounded-full border border-emerald-500/10 pointer-events-none animate-pulse" />
-        <div className="absolute w-44 h-44 rounded-full border border-emerald-500/15 pointer-events-none" />
+        <div className="absolute w-72 h-72 rounded-full border border-emerald-500/10 pointer-events-none animate-pulse" />
+        <div className="absolute w-48 h-48 rounded-full border border-emerald-500/15 pointer-events-none" />
 
         {/* Laser Scanline */}
         <div
-          className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-emerald-400/60 to-transparent pointer-events-none transition-all duration-1000 z-20"
+          className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent pointer-events-none transition-all duration-1000 z-20"
           style={{
             animation: "hologramScan 4s ease-in-out infinite alternate",
           }}
@@ -158,156 +166,57 @@ export const AnatomyMap: React.FC<AnatomyMapProps> = ({
           </div>
         )}
 
-        {/* ------------------- VIEW 1: FULL BODY HOLOGRAPHIC 3D SILHOUETTE ------------------- */}
+        {/* ------------------- VIEW 1: PHOTOREALISTIC 3D ANATOMICAL BODY MODEL ------------------- */}
         {viewMode === "body" && (
-          <div className="relative w-full h-full flex items-center justify-center">
-            <svg
-              viewBox="0 0 260 480"
-              className="w-48 h-full drop-shadow-[0_0_24px_rgba(16,185,129,0.25)]"
-            >
-              <defs>
-                <linearGradient id="holoBody" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#10b981" stopOpacity="0.25" />
-                  <stop offset="50%" stopColor="#08180e" stopOpacity="0.85" />
-                  <stop offset="100%" stopColor="#040c07" stopOpacity="0.95" />
-                </linearGradient>
-                <radialGradient id="holoRing" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#34d399" stopOpacity="0.9" />
-                  <stop offset="40%" stopColor="#10b981" stopOpacity="0.5" />
-                  <stop offset="100%" stopColor="#050806" stopOpacity="0" />
-                </radialGradient>
-              </defs>
+          <div className="relative w-full h-full flex items-center justify-center animate-fadeIn">
+            {/* Ambient Cyan/Blue Backing Glow */}
+            <div className="absolute w-60 h-72 rounded-full bg-cyan-500/15 blur-2xl pointer-events-none" />
 
-              <ellipse
-                cx="130"
-                cy="52"
-                rx="28"
-                ry="34"
-                fill="url(#holoBody)"
-                stroke={activeRegion === "neuro" ? "#34d399" : "#10b98166"}
-                strokeWidth={activeRegion === "neuro" ? "2.5" : "1.2"}
-                className="transition-all duration-300 cursor-pointer"
-                onClick={() => {
-                  setViewMode("brain");
-                  onSelectRegion("neuro");
-                }}
+            {/* Real 3D Muscular & Nervous Anatomy Render */}
+            <div className="relative h-full w-full flex items-center justify-center">
+              <img
+                src="/assets/real_body.png"
+                alt="Photorealistic 3D Human Body Anatomy"
+                className="max-h-full max-w-full object-contain filter drop-shadow-[0_10px_25px_rgba(6,182,212,0.35)] transition-transform duration-700 hover:scale-102"
               />
 
-              <path
-                d="M 120 40 Q 130 45 140 40 M 115 52 Q 130 56 145 52 M 122 64 Q 130 68 138 64"
-                stroke="rgba(52,211,153,0.4)"
-                strokeWidth="1"
-                fill="none"
-              />
-
-              <path
-                d="M 88 92 
-                   C 84 100, 72 130, 62 170 
-                   C 58 185, 60 195, 66 195 
-                   C 74 195, 84 165, 92 145 
-                   L 92 245 
-                   C 92 260, 96 270, 102 275
-                   L 90 420 
-                   C 88 435, 105 440, 114 425 
-                   L 126 300 
-                   L 134 300 
-                   L 146 425 
-                   C 155 440, 172 435, 170 420 
-                   L 158 275 
-                   C 164 270, 168 260, 168 245 
-                   L 168 145 
-                   C 176 165, 186 195, 194 195 
-                   C 200 195, 202 185, 198 170 
-                   C 188 130, 176 100, 172 92 
-                   C 162 88, 148 86, 130 86 
-                   C 112 86, 98 88, 88 92 Z"
-                fill="url(#holoBody)"
-                stroke="#10b98166"
-                strokeWidth="1.2"
-              />
-
-              <path
-                d="M 108 120 Q 130 115 152 120 M 104 135 Q 130 130 156 135 M 102 150 Q 130 145 158 150 M 104 165 Q 130 160 156 165"
-                stroke="rgba(52,211,153,0.22)"
-                strokeWidth="1.2"
-                fill="none"
-              />
-
-              <line
-                x1="130"
-                y1="86"
-                x2="130"
-                y2="270"
-                stroke="rgba(52,211,153,0.3)"
-                strokeDasharray="3 3"
-                strokeWidth="1.5"
-              />
-
-              {/* Hotspots */}
-              <g
-                className="cursor-pointer group"
-                onClick={() => {
-                  setViewMode("brain");
-                  onSelectRegion("neuro");
-                }}
-              >
-                <circle cx="130" cy="52" r="14" fill="url(#holoRing)" className="animate-ping" opacity="0.6" />
-                <rect x="98" y="40" width="64" height="24" rx="12" fill={activeRegion === "neuro" ? "#10b981" : "#0d1a12"} stroke={activeRegion === "neuro" ? "#34d399" : "#10b98188"} strokeWidth="1.5" />
-                <text x="130" y="56" textAnchor="middle" fill={activeRegion === "neuro" ? "#000000" : "#34d399"} fontSize="9.5" fontWeight="bold" fontFamily="monospace">NEURO</text>
-              </g>
-
-              <g
-                className="cursor-pointer group"
-                onClick={() => {
-                  setViewMode("heart");
-                  onSelectRegion("cardio_lung");
-                }}
-              >
-                <circle cx="130" cy="140" r="18" fill="url(#holoRing)" className="animate-ping" opacity="0.6" />
-                <rect x="82" y="120" width="96" height="40" rx="10" fill={activeRegion === "cardio_lung" ? "#10b981" : "#0d1a12"} stroke={activeRegion === "cardio_lung" ? "#34d399" : "#10b98188"} strokeWidth="1.5" />
-                <text x="130" y="136" textAnchor="middle" fill={activeRegion === "cardio_lung" ? "#000000" : "#34d399"} fontSize="9.5" fontWeight="bold" fontFamily="monospace">CHEST</text>
-                <text x="130" y="149" textAnchor="middle" fill={activeRegion === "cardio_lung" ? "#000000" : "#10b981"} fontSize="8" fontWeight="semibold" fontFamily="monospace">HEART / LUNG</text>
-              </g>
-
-              <g
-                className="cursor-pointer group"
-                onClick={() => {
-                  setViewMode("digestive");
-                  onSelectRegion("gi_endo");
-                }}
-              >
-                <circle cx="130" cy="205" r="16" fill="url(#holoRing)" className="animate-ping" opacity="0.5" />
-                <rect x="85" y="188" width="90" height="36" rx="10" fill={activeRegion === "gi_endo" ? "#10b981" : "#0d1a12"} stroke={activeRegion === "gi_endo" ? "#34d399" : "#10b98188"} strokeWidth="1.5" />
-                <text x="130" y="203" textAnchor="middle" fill={activeRegion === "gi_endo" ? "#000000" : "#34d399"} fontSize="9.5" fontWeight="bold" fontFamily="monospace">ABDOMEN</text>
-                <text x="130" y="216" textAnchor="middle" fill={activeRegion === "gi_endo" ? "#000000" : "#10b981"} fontSize="8" fontWeight="semibold" fontFamily="monospace">GI / ENDO</text>
-              </g>
-
-              <g
-                className="cursor-pointer group"
-                onClick={() => onSelectRegion(activeRegion === "joints_limbs" ? null : "joints_limbs")}
-              >
-                <rect x="78" y="315" width="104" height="28" rx="10" fill={activeRegion === "joints_limbs" ? "#10b981" : "#0d1a12"} stroke={activeRegion === "joints_limbs" ? "#34d399" : "#10b98188"} strokeWidth="1.5" />
-                <text x="130" y="333" textAnchor="middle" fill={activeRegion === "joints_limbs" ? "#000000" : "#34d399"} fontSize="9" fontWeight="bold" fontFamily="monospace">JOINTS / LIMBS</text>
-              </g>
-
-              <g
-                className="cursor-pointer group"
-                onClick={() => onSelectRegion(activeRegion === "systemic" ? null : "systemic")}
-              >
-                <rect x="52" y="442" width="156" height="26" rx="13" fill={activeRegion === "systemic" ? "#10b981" : "#08150c"} stroke={activeRegion === "systemic" ? "#34d399" : "#10b98188"} strokeWidth="1.2" />
-                <text x="130" y="459" textAnchor="middle" fill={activeRegion === "systemic" ? "#000000" : "#34d399"} fontSize="9" fontWeight="bold" fontFamily="monospace">⚡ SYSTEMIC / INFECTIOUS</text>
-              </g>
-            </svg>
+              {/* Interactive Region Hotspot Pills Overlay */}
+              {BODY_HOTSPOTS.map((spot) => {
+                const isActive = activeRegion === spot.id;
+                return (
+                  <div
+                    key={spot.id}
+                    style={{ top: `${spot.topPercent}%`, left: `${spot.leftPercent}%` }}
+                    className="absolute -translate-x-1/2 -translate-y-1/2 z-20 group"
+                  >
+                    <button
+                      onClick={() => {
+                        onSelectRegion(isActive ? null : spot.id);
+                        if (spot.organView !== "body") {
+                          setViewMode(spot.organView);
+                        }
+                      }}
+                      className={`px-2 py-0.5 rounded-full text-[9px] font-mono font-bold tracking-tight whitespace-nowrap border transition-all duration-200 flex items-center gap-1 shadow-lg ${
+                        isActive
+                          ? "bg-emerald-400 text-black border-emerald-300 scale-110 shadow-[0_0_15px_rgba(52,211,153,0.5)]"
+                          : "bg-black/85 text-emerald-300 border-emerald-500/50 hover:bg-emerald-950/80 hover:border-emerald-400"
+                      }`}
+                    >
+                      <span className={`w-1.5 h-1.5 rounded-full ${isActive ? "bg-black" : "bg-emerald-400 animate-pulse"}`} />
+                      <span>{spot.label.replace("\n", " ")}</span>
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         )}
 
         {/* ------------------- VIEW 2: PHOTOREALISTIC 3D BRAIN ------------------- */}
         {viewMode === "brain" && (
           <div className="relative w-full h-full flex items-center justify-center animate-fadeIn">
-            {/* Ambient Backing Glow */}
             <div className="absolute w-56 h-56 rounded-full bg-rose-500/15 blur-2xl pointer-events-none" />
 
-            {/* Realistic 3D Render Image */}
             <div className="relative w-64 h-56 flex items-center justify-center">
               <img
                 src="/assets/real_brain.png"
@@ -315,7 +224,6 @@ export const AnatomyMap: React.FC<AnatomyMapProps> = ({
                 className="max-h-full max-w-full object-contain filter drop-shadow-[0_15px_30px_rgba(244,63,94,0.35)] transition-transform duration-700 hover:scale-105"
               />
 
-              {/* Interactive Radar Hotspots Layer */}
               {REAL_BRAIN_HOTSPOTS.map((spot) => {
                 const isSelected = selectedSymptoms.includes(spot.id);
                 return (
@@ -352,10 +260,8 @@ export const AnatomyMap: React.FC<AnatomyMapProps> = ({
         {/* ------------------- VIEW 3: PHOTOREALISTIC 3D HEART ------------------- */}
         {viewMode === "heart" && (
           <div className="relative w-full h-full flex items-center justify-center animate-fadeIn">
-            {/* Ambient Backing Glow */}
             <div className="absolute w-56 h-56 rounded-full bg-red-600/15 blur-2xl pointer-events-none" />
 
-            {/* Realistic 3D Render Image with Rhythmic Heartbeat Pulse */}
             <div className="relative w-64 h-60 flex items-center justify-center animate-pulse" style={{ animationDuration: "1.2s" }}>
               <img
                 src="/assets/real_heart.png"
@@ -363,7 +269,6 @@ export const AnatomyMap: React.FC<AnatomyMapProps> = ({
                 className="max-h-full max-w-full object-contain filter drop-shadow-[0_15px_30px_rgba(239,68,68,0.4)] transition-transform duration-700 hover:scale-105"
               />
 
-              {/* Interactive Radar Hotspots Layer */}
               {REAL_HEART_HOTSPOTS.map((spot) => {
                 const isSelected = selectedSymptoms.includes(spot.id);
                 return (
@@ -400,10 +305,8 @@ export const AnatomyMap: React.FC<AnatomyMapProps> = ({
         {/* ------------------- VIEW 4: PHOTOREALISTIC 3D LUNGS ------------------- */}
         {viewMode === "lungs" && (
           <div className="relative w-full h-full flex items-center justify-center animate-fadeIn">
-            {/* Ambient Backing Glow */}
             <div className="absolute w-56 h-56 rounded-full bg-rose-500/15 blur-2xl pointer-events-none" />
 
-            {/* Realistic 3D Render Image with subtle breathing expansion */}
             <div className="relative w-64 h-64 flex items-center justify-center">
               <img
                 src="/assets/real_lungs.png"
@@ -411,7 +314,6 @@ export const AnatomyMap: React.FC<AnatomyMapProps> = ({
                 className="max-h-full max-w-full object-contain filter drop-shadow-[0_15px_30px_rgba(244,63,94,0.35)] transition-transform duration-700 hover:scale-105"
               />
 
-              {/* Interactive Radar Hotspots Layer */}
               {REAL_LUNGS_HOTSPOTS.map((spot) => {
                 const isSelected = selectedSymptoms.includes(spot.id);
                 return (
