@@ -28,32 +28,32 @@ const BODY_HOTSPOTS = [
 ];
 
 const REAL_BRAIN_HOTSPOTS: OrganHotspot[] = [
-  { id: "throbbing_headache", name: "Throbbing Headache", topPercent: 32, leftPercent: 44, regionId: "neuro", anatomicalLabel: "Frontal / Parietal Cortex" },
-  { id: "visual_aura_photophobia", name: "Visual Aura & Photophobia", topPercent: 42, leftPercent: 72, regionId: "neuro", anatomicalLabel: "Occipital Visual Lobe" },
-  { id: "dizziness_vertigo", name: "Dizziness & Vertigo", topPercent: 74, leftPercent: 62, regionId: "neuro", anatomicalLabel: "Cerebellum & Vestibular" },
-  { id: "blurred_vision", name: "Blurred Vision", topPercent: 48, leftPercent: 28, regionId: "neuro", anatomicalLabel: "Optic Nerve Pathways" },
-  { id: "insomnia", name: "Insomnia & Neural Fog", topPercent: 55, leftPercent: 52, regionId: "neuro", anatomicalLabel: "Temporal Subcortex" },
+  { id: "throbbing_headache", name: "Throbbing Headache", topPercent: 28, leftPercent: 45, regionId: "neuro", anatomicalLabel: "Frontal / Parietal Cortex" },
+  { id: "visual_aura_photophobia", name: "Visual Aura & Photophobia", topPercent: 40, leftPercent: 78, regionId: "neuro", anatomicalLabel: "Occipital Visual Lobe" },
+  { id: "dizziness_vertigo", name: "Dizziness & Vertigo", topPercent: 76, leftPercent: 68, regionId: "neuro", anatomicalLabel: "Cerebellum & Brainstem" },
+  { id: "blurred_vision", name: "Blurred Vision", topPercent: 52, leftPercent: 24, regionId: "neuro", anatomicalLabel: "Optic Chiasm / Temporal" },
+  { id: "insomnia", name: "Insomnia & Neural Fog", topPercent: 48, leftPercent: 50, regionId: "neuro", anatomicalLabel: "Temporal Subcortex" },
 ];
 
 const REAL_HEART_HOTSPOTS: OrganHotspot[] = [
-  { id: "sharp_chest_pain", name: "Sharp Chest Pain", topPercent: 68, leftPercent: 52, regionId: "cardio_lung", anatomicalLabel: "Myocardial Apex / Ventricle" },
-  { id: "chest_tightness_angina", name: "Chest Tightness / Angina", topPercent: 48, leftPercent: 62, regionId: "cardio_lung", anatomicalLabel: "Coronary Artery Branch" },
-  { id: "palpitations", name: "Palpitations & Arrhythmia", topPercent: 42, leftPercent: 36, regionId: "cardio_lung", anatomicalLabel: "Right Atrium / Sinus Node" },
-  { id: "shortness_of_breath", name: "Breathlessness on Exertion", topPercent: 25, leftPercent: 68, regionId: "cardio_lung", anatomicalLabel: "Ascending Aorta & Arch" },
+  { id: "sharp_chest_pain", name: "Sharp Chest Pain", topPercent: 72, leftPercent: 52, regionId: "cardio_lung", anatomicalLabel: "Myocardial Apex / Ventricle" },
+  { id: "chest_tightness_angina", name: "Chest Tightness / Angina", topPercent: 48, leftPercent: 66, regionId: "cardio_lung", anatomicalLabel: "Coronary Artery Branch" },
+  { id: "palpitations", name: "Palpitations & Arrhythmia", topPercent: 42, leftPercent: 32, regionId: "cardio_lung", anatomicalLabel: "Right Atrium / Sinus Node" },
+  { id: "shortness_of_breath", name: "Breathlessness on Exertion", topPercent: 18, leftPercent: 56, regionId: "cardio_lung", anatomicalLabel: "Ascending Aorta & Arch" },
 ];
 
 const REAL_LUNGS_HOTSPOTS: OrganHotspot[] = [
-  { id: "cough", name: "Persistent Cough / Tracheitis", topPercent: 18, leftPercent: 48, regionId: "cardio_lung", anatomicalLabel: "Trachea & Carina" },
-  { id: "shortness_of_breath", name: "Dyspnea / Air Hunger", topPercent: 46, leftPercent: 32, regionId: "cardio_lung", anatomicalLabel: "Right Pulmonary Lobe" },
-  { id: "sharp_chest_pain", name: "Pleuritic Pain", topPercent: 48, leftPercent: 68, regionId: "cardio_lung", anatomicalLabel: "Left Pleural Cavity" },
-  { id: "chest_tightness_angina", name: "Bronchial Wheezing", topPercent: 72, leftPercent: 38, regionId: "cardio_lung", anatomicalLabel: "Lower Basal Segment" },
+  { id: "cough", name: "Persistent Cough / Tracheitis", topPercent: 15, leftPercent: 49, regionId: "cardio_lung", anatomicalLabel: "Trachea & Carina" },
+  { id: "shortness_of_breath", name: "Dyspnea / Air Hunger", topPercent: 44, leftPercent: 30, regionId: "cardio_lung", anatomicalLabel: "Right Pulmonary Lobe" },
+  { id: "sharp_chest_pain", name: "Pleuritic Pain", topPercent: 46, leftPercent: 70, regionId: "cardio_lung", anatomicalLabel: "Left Pleural Cavity" },
+  { id: "chest_tightness_angina", name: "Bronchial Wheezing", topPercent: 74, leftPercent: 36, regionId: "cardio_lung", anatomicalLabel: "Lower Basal Segment" },
 ];
 
 const REAL_DIGESTIVE_HOTSPOTS: OrganHotspot[] = [
-  { id: "acid_reflux", name: "Acid Reflux / Heartburn", topPercent: 32, leftPercent: 50, regionId: "gi_endo", anatomicalLabel: "Gastroesophageal Junction" },
-  { id: "nausea_vomiting", name: "Nausea & Gastric Stasis", topPercent: 52, leftPercent: 42, regionId: "gi_endo", anatomicalLabel: "Gastric Body" },
-  { id: "excessive_hunger", name: "Polyphagia / Metabolic", topPercent: 54, leftPercent: 60, regionId: "gi_endo", anatomicalLabel: "Pancreatic Region" },
-  { id: "abdominal_pain", name: "Abdominal Pain", topPercent: 75, leftPercent: 50, regionId: "gi_endo", anatomicalLabel: "Intestinal Peristalsis" },
+  { id: "acid_reflux", name: "Acid Reflux / Heartburn", topPercent: 24, leftPercent: 54, regionId: "gi_endo", anatomicalLabel: "Gastroesophageal Junction" },
+  { id: "nausea_vomiting", name: "Nausea & Gastric Stasis", topPercent: 44, leftPercent: 56, regionId: "gi_endo", anatomicalLabel: "Gastric Body" },
+  { id: "excessive_hunger", name: "Hepatic / Metabolic", topPercent: 32, leftPercent: 34, regionId: "gi_endo", anatomicalLabel: "Hepatic Lobe" },
+  { id: "abdominal_pain", name: "Abdominal & Intestinal Cramping", topPercent: 74, leftPercent: 50, regionId: "gi_endo", anatomicalLabel: "Intestinal Peristalsis" },
 ];
 
 export const AnatomyMap: React.FC<AnatomyMapProps> = ({
@@ -217,7 +217,7 @@ export const AnatomyMap: React.FC<AnatomyMapProps> = ({
           <div className="relative w-full h-full flex items-center justify-center animate-fadeIn">
             <div className="absolute w-56 h-56 rounded-full bg-rose-500/15 blur-2xl pointer-events-none" />
 
-            <div className="relative w-64 h-56 flex items-center justify-center">
+            <div className="relative w-68 h-52 flex items-center justify-center">
               <img
                 src="/assets/real_brain.png"
                 alt="Realistic 3D Human Brain"
@@ -262,7 +262,7 @@ export const AnatomyMap: React.FC<AnatomyMapProps> = ({
           <div className="relative w-full h-full flex items-center justify-center animate-fadeIn">
             <div className="absolute w-56 h-56 rounded-full bg-red-600/15 blur-2xl pointer-events-none" />
 
-            <div className="relative w-64 h-60 flex items-center justify-center animate-pulse" style={{ animationDuration: "1.2s" }}>
+            <div className="relative w-48 h-64 flex items-center justify-center animate-pulse" style={{ animationDuration: "1.2s" }}>
               <img
                 src="/assets/real_heart.png"
                 alt="Realistic 3D Human Heart"
@@ -307,7 +307,7 @@ export const AnatomyMap: React.FC<AnatomyMapProps> = ({
           <div className="relative w-full h-full flex items-center justify-center animate-fadeIn">
             <div className="absolute w-56 h-56 rounded-full bg-rose-500/15 blur-2xl pointer-events-none" />
 
-            <div className="relative w-64 h-64 flex items-center justify-center">
+            <div className="relative w-60 h-68 flex items-center justify-center">
               <img
                 src="/assets/real_lungs.png"
                 alt="Realistic 3D Human Lungs"
@@ -350,57 +350,13 @@ export const AnatomyMap: React.FC<AnatomyMapProps> = ({
         {/* ------------------- VIEW 5: REALISTIC 3D DIGESTIVE / METABOLIC ------------------- */}
         {viewMode === "digestive" && (
           <div className="relative w-full h-full flex items-center justify-center animate-fadeIn">
-            <svg
-              viewBox="0 0 240 220"
-              className="w-56 h-52 drop-shadow-[0_15px_30px_rgba(234,179,8,0.2)]"
-            >
-              <defs>
-                <radialGradient id="stomachGrad" cx="45%" cy="40%" r="55%">
-                  <stop offset="0%" stopColor="#fde047" />
-                  <stop offset="40%" stopColor="#ca8a04" />
-                  <stop offset="85%" stopColor="#854d0e" />
-                  <stop offset="100%" stopColor="#422006" />
-                </radialGradient>
-                <radialGradient id="liverGrad" cx="40%" cy="40%" r="60%">
-                  <stop offset="0%" stopColor="#b91c1c" />
-                  <stop offset="100%" stopColor="#450a0a" />
-                </radialGradient>
-              </defs>
+            <div className="absolute w-56 h-56 rounded-full bg-amber-500/15 blur-2xl pointer-events-none" />
 
-              <rect x="120" y="15" width="12" height="55" rx="5" fill="#ca8a04" stroke="#a16207" strokeWidth="1.5" />
-
-              <path
-                d="M 60 70 C 85 55, 130 58, 145 75 C 135 95, 95 105, 65 95 Z"
-                fill="url(#liverGrad)"
-                stroke="#f87171"
-                strokeWidth="1.2"
-                opacity="0.8"
-              />
-
-              <path
-                d="M 125 65 
-                   C 105 65, 80 85, 85 115 
-                   C 90 145, 125 155, 150 140 
-                   C 165 125, 155 100, 140 95 
-                   C 135 85, 132 75, 125 65 Z"
-                fill="url(#stomachGrad)"
-                stroke="#fef08a"
-                strokeWidth="2"
-              />
-
-              <path
-                d="M 95 150 Q 120 160 145 150 Q 155 170 135 180 Q 115 170 95 180 Q 85 195 115 205 Q 145 200 155 185"
-                stroke="#a16207"
-                strokeWidth="7"
-                strokeLinecap="round"
-                fill="none"
-              />
-              <path
-                d="M 95 150 Q 120 160 145 150 Q 155 170 135 180 Q 115 170 95 180 Q 85 195 115 205 Q 145 200 155 185"
-                stroke="#fef08a"
-                strokeWidth="2"
-                strokeLinecap="round"
-                fill="none"
+            <div className="relative w-60 h-68 flex items-center justify-center">
+              <img
+                src="/assets/real_digestive.png"
+                alt="Realistic 3D Gastrointestinal & Hepatic System"
+                className="max-h-full max-w-full object-contain filter drop-shadow-[0_15px_30px_rgba(245,158,11,0.35)] transition-transform duration-700 hover:scale-105"
               />
 
               {REAL_DIGESTIVE_HOTSPOTS.map((spot) => {
@@ -432,7 +388,7 @@ export const AnatomyMap: React.FC<AnatomyMapProps> = ({
                   </button>
                 );
               })}
-            </svg>
+            </div>
           </div>
         )}
       </div>
